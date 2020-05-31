@@ -15,7 +15,7 @@ function App () {
       <div className='App'>
         <header className='App-header'>
           <nav>
-            <ul>
+            <ul className='nav-list'>
               <li>
                 <Link to='/'> Home </Link>
               </li>
