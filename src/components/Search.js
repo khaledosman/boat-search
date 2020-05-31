@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react'
+import React, { useState, memo, useMemo } from 'react'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import Boat from './Boat'
@@ -90,16 +90,16 @@ const Search = memo(props => {
     setActiveFilters({length: null, year:null})
   }
 
-  function applyFilters(boats, activeFilters, filters) {
+  const applyFilters = useMemo(() => (boats, activeFilters, filters) => {
+    console.log('in here')
     return boats.filter(boat => {
       return Object.keys(activeFilters).every(activeFilter => {
         const filter = filters.find(filter => filter.id === activeFilter)
         const filterOption = filter && filter.options.find(option => option.title === activeFilters[activeFilter])
         return activeFilters[activeFilter] === null || (filterOption && filterOption.match(boat))
       })
-  
     })
-  }
+  }, [])
 
   if (loading) return <p>Loading...</p>;
   if (error) return `Error! ${error}`;
