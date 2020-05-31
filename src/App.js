@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { memo, Suspense, lazy } from 'react';
 import './App.css';
-import Search from './components/Search'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
+// import Search from './components/Search'
+const Search = lazy(() => import(/* webpackChunkName: "Search", webpackPrefetch: true */ './components/Search'))
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
             </ul>
           </nav>
         </header>
-
+      <Suspense fallback={<p>Loading...</p>}>
         <Switch>
           <Route path="/search">
             <Search />
@@ -33,9 +34,10 @@ function App() {
             <p> Home Component </p>
           </Route>
         </Switch>
+        </Suspense>
       </div>
     </Router>
   );
 }
 
-export default App;
+export default memo(App);

@@ -3,37 +3,35 @@ import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import Boat from './Boat'
 import Filters from './Filters'
+
 const GET_BOATS = gql`
-query getBoats($active: Boolean!) {
-  getBoats(input:{
-    active:$active
-  }) {
-    id
-    name
-    type
-    year
-    reviews {
-      total
-      score
+  query getBoats($active: Boolean!) {
+    getBoats(input:{
+      active:$active
+    }) {
+      id
+      name
+      type
+      year
+      reviews {
+        total
+        score
+      }
+      marina
+      locality
+      country
+      skipper
+      active
+      cabins
+      guests
+      length
+      price
+      imageUrl
     }
-    marina
-    locality
-    country
-    skipper
-    active
-    cabins
-    guests
-    length
-    price
-    imageUrl
   }
-}
-`;
+`
 
-
-
-const Search = memo(props => {
-  
+const Search = memo(() => {
   const filters = [{
     id:"length",
     inputType: "radio",
