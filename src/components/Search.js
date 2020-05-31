@@ -101,13 +101,13 @@ const Search = memo(() => {
 
   if (loading) return <p>Loading...</p>
   if (error) return `Error! ${error}`
+  const filteredBoats = applyFilters(data.getBoats, activeFilters, filters)
   return (
     <>
       <Filters filters={filters} activeFilters={activeFilters} onReset={handleReset} />
-      <div>
-        {applyFilters(data.getBoats, activeFilters, filters).map(boat =>
-          <Boat boat={boat} key={boat.id} />
-        )}
+      <div style={{ width: '100%', height: '100%', border: 'solid 1px #e3e3e3', minHeight: '200px' }}>
+        {filteredBoats.length > 0 && filteredBoats.map(boat => <Boat boat={boat} key={boat.id} />)}
+        {filteredBoats.length === 0 && <p style={{ textAlign: 'center' }}>No boats available</p>}
       </div>
     </>
   )
