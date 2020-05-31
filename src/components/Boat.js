@@ -34,28 +34,39 @@ function Boat (props) {
         <img src={boat.imageUrl} alt='boat' />
       </div>
       <div className='card-content'>
-        <div className='card-title'>
-          <h5>{boat.name} {boat.type} ({boat.year})</h5>
-          <span>€{boat.price}/Day</span>
-        </div>
-        <div className='card-abstract'>
-          <div>
-            {boat.reviews.score}
-            <span> Read Reviews</span>
+        <div className='left'>
+          <div className='card-title'>
+            <h5>{boat.name} {boat.type} ({boat.year})</h5>
+
           </div>
-          <span>
-            Country: {boat.country}
-          </span>
+          <div className='card-abstract'>
+            <div>
+              {new Array(boat.reviews.score).fill(0).map((i, index) => <span key={index}>*</span>)}
+              <span> Read Reviews</span>
+            </div>
+
+          </div>
+          <div className='card-details'>
+            <i className='icon' /> Skipper: {boat.skipper}
+            <i className='icon' /> Cabins: {boat.cabins}
+            <i className='icon' /> Guests: Up to {boat.guests}
+          </div>
+
         </div>
-        <div className='card-details'>
-          <i className='icon' /> Skipper: {boat.skipper}
-          <i className='icon' /> Cabins: {boat.cabins}
-          <i className='icon' /> Guests: Up to {boat.guests}
-        </div>
-        <div>
+        <div className='right'>
+          <div>€{boat.price}/Day</div>
+          <div>
+            {boat.locality}, {boat.marina}, {boat.country}
+          </div>
+          <div>
           Length: {boat.length}m
+          </div>
+          <div>
+            {boat.active && <b> Instant booking</b>}
+          </div>
         </div>
-        {boat.active && <b> Instant booking</b>}
+      </div>
+      <div style={{ position: 'absolute', bottom: '5px', right: '20px' }}>
         <button type='button' onClick={handleClick}>View Details</button>
       </div>
 
