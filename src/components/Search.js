@@ -33,21 +33,21 @@ const GET_BOATS = gql`
 
 const Search = memo(() => {
   const filters = [{
-    id:"length",
-    inputType: "radio",
-    title: "boat length",
+    id: 'length',
+    inputType: 'radio',
+    title: 'boat length',
     handleChange: e => {
       console.log(e.target.id)
-      setActiveFilters({...activeFilters, [e.target.id]: e.target.value})
+      setActiveFilters({ ...activeFilters, [e.target.id]: e.target.value })
     },
     options: [{
-      title: "<15",
+      title: '<15',
       checked: false,
       match: boat => {
         return boat.length < 15
       }
     }, {
-      title: ">=15",
+      title: '>=15',
       checked: false,
       match: boat => {
         return boat.length >= 15
@@ -55,21 +55,21 @@ const Search = memo(() => {
     }]
   },
   {
-    id:"year",
-    inputType: "radio",
-    title: "boat year",
+    id: 'year',
+    inputType: 'radio',
+    title: 'boat year',
     handleChange: e => {
       console.log(e.target.id)
-      setActiveFilters({...activeFilters, [e.target.id]: e.target.value})
+      setActiveFilters({ ...activeFilters, [e.target.id]: e.target.value })
     },
     options: [{
-      title: "<2010",
+      title: '<2010',
       checked: false,
       match: boat => {
         return boat.year < 2010
       }
     }, {
-      title: ">=2010",
+      title: '>=2010',
       checked: false,
       match: boat => {
         return boat.year >= 2010
@@ -81,11 +81,11 @@ const Search = memo(() => {
     year: null
   })
   const { loading, error, data } = useQuery(GET_BOATS, {
-    variables: { active: true },
-  });
+    variables: { active: true }
+  })
 
-  function handleReset() {
-    setActiveFilters({length: null, year:null})
+  function handleReset () {
+    setActiveFilters({ length: null, year: null })
   }
 
   const applyFilters = useMemo(() => (boats, activeFilters, filters) => {
@@ -99,11 +99,11 @@ const Search = memo(() => {
     })
   }, [])
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return `Error! ${error}`;
+  if (loading) return <p>Loading...</p>
+  if (error) return `Error! ${error}`
   return (
     <>
-      <Filters filters={filters} activeFilters={activeFilters} onReset={handleReset}/>
+      <Filters filters={filters} activeFilters={activeFilters} onReset={handleReset} />
       <div>
         {applyFilters(data.getBoats, activeFilters, filters).map(boat =>
           <Boat boat={boat} key={boat.id} />
@@ -112,6 +112,5 @@ const Search = memo(() => {
     </>
   )
 })
-
 
 export default Search
